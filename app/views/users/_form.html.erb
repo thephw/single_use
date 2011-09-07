@@ -1,25 +1,66 @@
 <%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+	
+	<!-- GET ERROR DISPLAY -->
+	<% if @user.errors.any? %>
+	</section>
+	<section class="round">
+		<div id="error_explanation" class="error">
+		<h3><%= pluralize(@user.errors.count, "error") %> prohibited the results from being saved:</h3>
+		<ul>
+		<% @user.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+		</ul>
+		</div>
+	<% end %>
 
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<!-- GET EMAIL -->
+	<div class="field">
+		<%= f.label :email %>  <%= f.text_field :email %>
+	</div>
+	
+	<!-- GET QUESTIONS DISPLAY -->
+	<% Question.all.each_with_index do |q, q_index| %>
+	</section>
+	<section class="round">
+	<span class="prompt"><%= q.prompt %></span>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :answers %><br />
-    <%= f.text_field :answers %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<% @user.answers = {} if(@user.answers.nil? || @user.answers.empty?) %>		
+	<span class="options">
+		<% if q.options.nil? == false && q.options.empty? == false%>
+			<br />
+			<% q.options.split(' | ').each_with_index do |a, a_index| %>
+				<% id = "user_answers_q#{q_index}"%>
+				<% name = "user[answers][q#{q_index}]"%>
+				<% type = "radio" %>
+				<% value = "#{a_index}" %>
+				<% checked = "false" %>
+				<% checked = "checked='checked'" if @user.answers["q#{q_index}"] == a_index.to_s %>
+			<input id='<%= id %>' name='<%= name %>' type='<%= type %>' value='<%= value %>' <%= checked %>/>  
+				<%= a %>
+				<br />
+			<% end %>
+		<% else%>
+			<% id = "user_answers_q#{q_index}"%>
+			<% name = "user[answers][q#{q_index}]"%>
+			<% type = "text" %>
+			<% value = @user.answers["q#{q_index}"] %>
+			<input id='<%= id %>' name='<%= name %>' size="30" type='<%= type %>' value ='<%= value %>'/>
+			<br />
+		<% end %>
+	</span>
+
+	<% if q.response.nil? == false && q.response.empty? == false %>
+		<br />
+		<div class="notice"><%= q.response %></div>
+	<% end %>
+	
+	<% end%>
+	<!-- SET SUBMIT -->
+	</section>
+	<section class="round">
+	<div class="actions">
+    	<%= f.submit 'Submit Results', :class => "submit_button round"%>
+  	</div>
+  
 <% end %>

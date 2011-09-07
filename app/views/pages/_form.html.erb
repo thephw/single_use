@@ -29,14 +29,16 @@
 	</div>
 
 	<div class="options">
-		<% if q.options %>
+		<% if q.options.nil? == false && q.options.empty? == false%>
 			<% q.options.split(' | ').each_with_index do |a, a_index| %>
 				<%= f.radio_button :answers, a_index %><%= a %><br />
 			<% end %>
+		<% else%>
+			<%= f.text_field :answers %>
 		<% end %>
 	</div>
 
-	<div class="response"><p>Response</p>
+	<div class=".info"><p><%= q.response %></p>
 	</div>
 	<% end %>
 	

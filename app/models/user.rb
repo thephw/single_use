@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   
-  serialize :answers, Array
+  serialize :answers, Hash
 
   validates :email, :presence => true
 
