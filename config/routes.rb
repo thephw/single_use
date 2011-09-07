@@ -1,4 +1,12 @@
 SingleUse::Application.routes.draw do
+  resources :questions
+
+  resources :users
+  root :to => 'pages#home'
+  match 'survey', :to => 'pages#survey'
+  match 'results', :to => 'pages#results'
+  match 'about', :to => 'pages#about'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
