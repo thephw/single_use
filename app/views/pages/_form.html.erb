@@ -1,0 +1,43 @@
+<%= form_for(@user) do |f| %>
+	
+	<!-- ERROR DISPLAY -->
+	<% if @user.errors.any? %>
+		<div id="error_explanation" class="error">
+		<h3><%= pluralize(@user.errors.count, "error") %> prohibited the results from being saved:</h3>
+		<ul>
+		<% @user.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+		</ul>
+		</div>
+	<% end %>
+
+	<!-- QUESTIONS DISPLAY -->
+	<div class="field">
+		<%= f.label :email %>  <%= f.text_field :email %>
+	</div>
+	<% answer_prefix = "a" %>
+	<% filter_regex = '[a]\d+'%>
+	<% filtered_array = [] %>
+	<% @user.attributes.each_key{|k| filtered_array << k if k.starts_with?(answer_prefix)} %>
+	<% prefix_end = answer_prefix.length %>
+	<% filtered_array.sort!{|a,b| a[prefix_end .. a.length].to_i <=> b[prefix_end .. b.length ].to_i } %>
+	<% filtered_array.each do |key| %>
+		<% if key.match(filter_regex).nil? == false %>
+		<div class="field">
+	    	<%= f.label key %><br />
+			<%= index =  key[prefix_end .. key.length].to_i %>
+			<%= q = Question.where(:id => index) %>
+			<% if q.empty? == false %>
+				<% q.possible_answers.each_with_index do |i, txt| %>
+				<%= f.radio_button key, i%><%= txt%>
+				<% end %>
+			<% end %>
+		</div>
+		<% end %>
+	<% end %>
+	<div class="actions">
+    	<%= f.submit %>
+  	</div>
+  
+<% end %>

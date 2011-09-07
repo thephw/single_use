@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  prompt: MyString
+  options: MyString
+  answer: 1
+  response: MyString
+
+two:
+  prompt: MyString
+  options: MyString
+  answer: 1
+  response: MyString
