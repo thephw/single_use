@@ -1,27 +1,25 @@
 <%= form_for(@user) do |f| %>
-	
-	<!-- ERROR DISPLAY -->
-	<% if @user.errors.any? %>
-		<div id="error_explanation" class="error">
-		<h3><%= pluralize(@user.errors.count, "error") %> prohibited the results from being saved:</h3>
-		<ul>
-		<% @user.errors.full_messages.each do |msg| %>
-			<li><%= msg %></li>
-		<% end %>
-		</ul>
-		</div>
-	<% end %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-	<!-- QUESTIONS DISPLAY -->
-	<% @user.attributes.each_key do |key|%>
-	<div class="field">
-		<%= f.label key %>  <%= f.text_field key %>
-	</div>
-	<% end %>
-	
-	<!-- SUBMIT -->
-	<div class="actions">
-    	<%= f.submit %>
-  	</div>
-  
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :answers %><br />
+    <%= f.text_field :answers %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
 <% end %>

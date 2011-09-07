@@ -1,7 +1,7 @@
 SingleUse::Application.routes.draw do
-  resources :questions
-
   resources :users
+
+  resources :questions
   root :to => 'pages#home'
   match 'survey', :to => 'pages#survey'
   match 'results', :to => 'pages#results'
