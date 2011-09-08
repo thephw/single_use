@@ -1,12 +1,6 @@
 <script language="JavaScript">
 function SelectAnswer(questionID)
 {	
-	//Setup element var
-	var responseElement = document.getElementById(questionID+"_response")
-	
-	//Show the prompt
-	responseElement.style.display='block';	
-	
 	//Disable radio buttons
 	var inputElements = document.getElementsByTagName("input")
 	var input
@@ -16,6 +10,13 @@ function SelectAnswer(questionID)
 			input.disabled = true;
 		}
 	}
+		
+	//Setup element var, this could fail if there is no element at which point
+	//nothing else will be executed so be careful about that
+	var responseElement = document.getElementById(questionID+"_response")
+	
+	//Show the prompt
+	responseElement.style.display='block';	
 }
 </script>
 
