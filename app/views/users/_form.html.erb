@@ -53,22 +53,22 @@ function SelectAnswer(questionID)
 			<br />
 			<% q.options.split(' | ').each_with_index do |a, a_index| %>
 				<% id = "user_answers_q#{q_index}"%>
+				<%= debug id if Rails.env.development? %>
 				<% name = "user[answers][q#{q_index}]"%>
 				<% type = "radio" %>
 				<% value = "#{a_index}" %>
 				<% checked = "false" %>
 				<% checked = "checked='checked'" if @user.answers["q#{q_index}"] == a_index.to_s %>
-			<%= debug id %>
 			<input id='<%= id %>' name='<%= name %>' type='<%= type %>' value='<%= value %>' onclick ="javascript:SelectAnswer('<%= id %>')" href="javascript:;" <%= checked %>/>  
 				<%= a %>
 				<br />
 			<% end %>
 		<% else%>
+			<%= debug id if Rails.env.development? %>
 			<% id = "user_answers_q#{q_index}"%>
 			<% name = "user[answers][q#{q_index}]"%>
 			<% type = "text" %>
 			<% value = @user.answers["q#{q_index}"] %>
-			<%= debug id %>
 			<input id='<%= id %>' name='<%= name %>' size="30" type='<%= type %>' value ='<%= value %>'/>
 			<br />
 		<% end %>
