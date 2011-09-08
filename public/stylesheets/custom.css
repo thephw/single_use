@@ -3,21 +3,15 @@
 }
 
 body {
-	background: #cff;
+	background: #002878;
 }
 
 header{
 	padding-top: 20px;
-	
-}
-
-header img {
-	padding: 1em;
-	background: #fff;
 }
 
 section {
-	margin-top: 1em;
+	margin-top: 0.5em;
 	font-size: 120%;
 	padding: 20px;
 	background: #fff;
@@ -25,22 +19,23 @@ section {
 
 /* Links */
 a {
-	color: #09c;
+	color: #fff;
 	text-decoration: none;
 }
 
 a:hover {
-	color: #069;
+	color: #fff;
 	text-decoration: underline;
 }
 
 a:visited {
-	color: #069;
+	color: #fff;
 }
 
 nav {
-	float: right;
-	background: #fff;
+	float: bottom;
+	text-align: center;
+	background: #D1B000;
 	padding: 0  0.7em;
 	white-space: nowrap;
 }
@@ -52,20 +47,21 @@ nav ul {
 nav ul li {
 	list-style-type: none;
 	display: inline-block;
-	padding: 0.2em 0;
+	padding: 0.2em 0em;
 }
 
 nav ul li a{
 	padding: 0 5px;
 	font-weight: bold;
+	font-size: 125%;
 }
 
 nav ul li a:visited {
-	color: #09c;
+	color: #fff;
 }
 
 nav ul li a:hover {
-	color: #09c;
+	color: #fff;
 	text-decoration: underline;
 }
 
@@ -76,7 +72,7 @@ a.signup_button {
 	text-align: center;
 	width: 190px;
 	color: #fff;
-	background: #006400;
+	background: #D1B000;
 	font-size: 150%;
 	font-weight: bold;
 	padding: 20px;
@@ -89,7 +85,7 @@ input.submit_button {
 	text-align: center;
 	width: 225px;
 	color: #fff;
-	background: #006400;
+	background: #D1B000;
 	font-size: 150%;
 	font-weight: bold;
 	padding: 20px;
@@ -102,9 +98,14 @@ input.submit_button {
 }
 
 footer {
-text-align: center; margin-top: 10px; width: 710px; margin-left: auto; margin-right: auto;
+	text-align: center; 
+	margin-top: 10px; 
+	width: 710px;
+	margin-left: auto; 
+	margin-right: auto;
 }
-footer nav { float: none;
+footer nav { 
+	float: none;
 }
 
 section h1 {
