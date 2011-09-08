@@ -1,21 +1,7 @@
-<h1>Pages#results</h1>
-<p>Find me in app/views/pages/results.html.erb</p>
-<a onclick ="javascript:ShowHide('HiddenDiv')" href="javascript:;" >Show/Hide</a>
-
-<div class="mid" id="HiddenDiv" style="DISPLAY: none" >
-This text was hidden
-</div>
-
-<script language="JavaScript">
-function ShowHide(divId)
-{
-	if(document.getElementById(divId).style.display == 'none')
-	{
-		document.getElementById(divId).style.display='block';
-	}
-	else
-	{
-		document.getElementById(divId).style.display = 'none';
-	}
-}
-</script>
+<h1>Survey Results</h1>
+<p>Overall results are broken down by question as well as demographic information</p>
+<h2>Question 1<h2>
+	<p>Repeat question text, show correct answer and best practice info<p>
+		<%= image_tag Gchart.pie_3d(:data => [20, 35, 45]) %>
+		<%= image_tag  Gchart.venn(:data => [100, 80, 60, 30, 30, 30, 10]) %>
+		<%= image_tag Gchart.bar(:title => "Recent Chart Sexyness", :data => [15, 30, 10, 20, 100, 20, 40, 100]) %>

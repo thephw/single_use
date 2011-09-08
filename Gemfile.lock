@@ -34,6 +34,8 @@ GEM
     diff-lcs (1.1.3)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    googlecharts (1.6.7)
+    gravatar_image_tag (1.0.0.pre2)
     heroku (2.7.0)
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
@@ -104,6 +106,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  googlecharts
+  gravatar_image_tag (= 1.0.0.pre2)
   heroku
   rails (= 3.0.10)
   rspec (= 2.6.0)

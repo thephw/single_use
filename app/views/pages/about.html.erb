@@ -1,2 +1,20 @@
-<h1>Pages#about</h1>
-<p>Find me in app/views/pages/about.html.erb</p>
+<h1>About Us</h1>
+<p>Small snippet about the research project in general.</p>
+<h2>Researchers</h2>
+<p>Snippet about researchers in general</p>
+<div id="Bio">
+<h3>Name</h3>
+	<%= gravatar_image_tag 'example@railstutorial.org' %>
+	<p>Small professional bio</p>
+</div>
+<h2>Additional Info</h2>
+<table>
+	<tr>
+		<th>Resource</th>
+		<th>URL</th>
+	</tr>
+	<tr>
+		<td><%= link_to "One and only one Campaign", "http://www.oneandonlycampaign.org/" %></td>
+		<td>http://www.oneandonlycampaign.org/</td>
+	</tr>
+</table>
