@@ -1,2 +1,21 @@
 <h1>Pages#results</h1>
 <p>Find me in app/views/pages/results.html.erb</p>
+<a onclick ="javascript:ShowHide('HiddenDiv')" href="javascript:;" >Show/Hide</a>
+
+<div class="mid" id="HiddenDiv" style="DISPLAY: none" >
+This text was hidden
+</div>
+
+<script language="JavaScript">
+function ShowHide(divId)
+{
+	if(document.getElementById(divId).style.display == 'none')
+	{
+		document.getElementById(divId).style.display='block';
+	}
+	else
+	{
+		document.getElementById(divId).style.display = 'none';
+	}
+}
+</script>
