@@ -1,16 +1,13 @@
 class Question < ActiveRecord::Base
-  attr_reader :multiple_choice_question, :short_response_question, :long_response_question
+
+  :options_array
   
-  def multiple_choice_question
-    1
-  end
-  
-  def short_response_question
-    2
-  end
-  
-  def long_response_question
-    3
+  def options_array
+    arr = Array.new
+    self.options.split(' | ').each do |option|
+      arr << option
+    end
+    arr
   end
 
 end

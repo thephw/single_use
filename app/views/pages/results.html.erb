@@ -1,7 +1,23 @@
 <h1>Survey Results</h1>
-<p>Overall results are broken down by question as well as demographic information</p>
-<h2>Question 1<h2>
-	<p>Repeat question text, show correct answer and best practice info<p>
-		<%= image_tag Gchart.pie_3d(:data => [20, 35, 45]) %>
-		<%= image_tag  Gchart.venn(:data => [100, 80, 60, 30, 30, 30, 10]) %>
-		<%= image_tag Gchart.bar(:title => "Recent Chart Sexyness", :data => [15, 30, 10, 20, 100, 20, 40, 100]) %>
+<p>Overall results are broken down overall as well as by demographic information</p>
+<a href="#overall">Overall Results</a><br />
+<a href="#setting">Results by Practice Setting</a><br />
+<a href="#age">Results by Age</a><br />
+<a href="#gender">Results by Gender</a><br />
+<a href="#experience">Results by Experience</a><br />
+<a href="#region">Results by Region</a><br />
+
+<a name="overall"></a>
+<h2>Overall Results</h2>
+<% Question.all.each do |q| %>
+	<% next if q.options.nil?  || q.options.empty? %>
+	<!-- COLLECT THE DATA -->
+	<% title = "Question #{q.id}" %>
+	<% legend = q.options %>
+	<% data = [10,20,30] %>
+
+	<!-- Make the display -->
+	<p><b><%= title %></b> - <%= q.prompt %></p>	
+	<%= image_tag Gchart.pie_3d(:title => title, :size => '500x200', :data => data, :labels => legend  )%>
+	<br /><br /><br />
+<% end %>

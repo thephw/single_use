@@ -10,16 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110907034153) do
+ActiveRecord::Schema.define(:version => 20110914201359) do
 
-# Could not dump table "questions" because of following StandardError
-#   Unknown type '' for column 'id'
+  create_table "questions", :force => true do |t|
+    t.string    "prompt"
+    t.string    "options"
+    t.integer   "answer"
+    t.string    "response"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.integer   "priority"
+  end
 
   create_table "users", :force => true do |t|
-    t.string   "email"
-    t.string   "answers"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "email"
+    t.string    "answers"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
 end

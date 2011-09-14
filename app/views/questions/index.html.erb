@@ -2,7 +2,8 @@
 
 <table>
   <tr>
-	<th>ID</th>
+		<th>#</th>
+		<th>ID</th>
     <th>Prompt</th>
     <th>Options</th>
     <th>Answer</th>
@@ -14,7 +15,8 @@
 
 <% @questions.each do |question| %>
   <tr>
-	<td><%= question.id %></td>
+		<td><%= question.priority %></td>
+		<td><%= question.id %></td>
     <td><%= question.prompt %></td>
     <td><%= question.options %></td>
     <td><%= question.answer %></td>

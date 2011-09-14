@@ -28,60 +28,62 @@ function SelectAnswer(questionID)
 	<section class="round">
 		<div id="error_explanation" class="error">
 		<h3><%= pluralize(@user.errors.count, "error") %> prohibited the results from being saved:</h3>
-		<ul>
+		<ol>
 		<% @user.errors.full_messages.each do |msg| %>
 			<li><%= msg %></li>
 		<% end %>
-		</ul>
+		</ol>
 		</div>
 	<% end %>
-
-	<!-- GET EMAIL -->
-	<div class="field">
-		<%= f.label :email %>  <%= f.text_field :email %>
-	</div>
 	
 	<!-- GET QUESTIONS DISPLAY -->
 	<% Question.all.each_with_index do |q, q_index| %>
-	</section>
-	<section class="round">
-	<span class="prompt"><%= q.prompt %></span>
+		</section>
+		<section class="round">
+		<span class="prompt"><%= q.prompt %></span>
 
-	<% @user.answers = {} if(@user.answers.nil? || @user.answers.empty?) %>		
-	<span class="options">
-		<% if q.options.nil? == false && q.options.empty? == false%>
-			<br />
-			<% q.options.split(' | ').each_with_index do |a, a_index| %>
-				<% id = "user_answers_q#{q_index}"%>
+		<% @user.answers = {} if(@user.answers.nil? || @user.answers.empty?) %>		
+		<span class="options">
+			<% if q.options.nil? == false && q.options.empty? == false%>
+				<br />
+				<% q.options.split(' | ').each_with_index do |a, a_index| %>
+					<% id = "user_answers_q#{q_index}"%>
+					<%= debug id if Rails.env.development? %>
+					<% name = "user[answers][q#{q_index}]"%>
+					<% type = "radio" %>
+					<% value = "#{a_index}" %>
+					<% checked = "false" %>
+					<% checked = "checked='checked'" if @user.answers["q#{q_index}"] == a_index.to_s %>
+				<input id='<%= id %>' name='<%= name %>' type='<%= type %>' value='<%= value %>' onclick ="javascript:SelectAnswer('<%= id %>')" href="javascript:;" <%= checked %>/>  
+					<%= a %>
+					<br />
+				<% end %>
+			<% else %>
 				<%= debug id if Rails.env.development? %>
+				<% id = "user_answers_q#{q_index}"%>
 				<% name = "user[answers][q#{q_index}]"%>
-				<% type = "radio" %>
-				<% value = "#{a_index}" %>
-				<% checked = "false" %>
-				<% checked = "checked='checked'" if @user.answers["q#{q_index}"] == a_index.to_s %>
-			<input id='<%= id %>' name='<%= name %>' type='<%= type %>' value='<%= value %>' onclick ="javascript:SelectAnswer('<%= id %>')" href="javascript:;" <%= checked %>/>  
-				<%= a %>
+				<% type = "text" %>
+				<% value = @user.answers["q#{q_index}"] %>
+				<input id='<%= id %>' name='<%= name %>' size="30" type='<%= type %>' value ='<%= value %>'/>
 				<br />
 			<% end %>
-		<% else%>
-			<%= debug id if Rails.env.development? %>
-			<% id = "user_answers_q#{q_index}"%>
-			<% name = "user[answers][q#{q_index}]"%>
-			<% type = "text" %>
-			<% value = @user.answers["q#{q_index}"] %>
-			<input id='<%= id %>' name='<%= name %>' size="30" type='<%= type %>' value ='<%= value %>'/>
-			<br />
-		<% end %>
-	</span>
+		</span>
 
-	<% if q.response.nil? == false && q.response.empty? == false %>
-		<br />
-		<div class="notice" id="user_answers_q<%=q_index%>_response" style="DISPLAY: none">
-			<%= q.response %>
-		</div>
-	<% end %>
+		<% if q.response.nil? == false && q.response.empty? == false %>
+			<br />
+			<div class="notice" id="user_answers_q<%=q_index%>_response" style="DISPLAY: none">
+				<%= q.response %>
+			</div>
+		<% end %>	
+    <% end%>
+
+	<!-- GET EMAIL -->
+	<div class="field">
+		<h3>Optional</h3>
+		<p>If you would like to be receive access to the survey results you may enter your email here.  All contact information will be saved separate from survey results. </p>
+		<%= f.label :email %>  <%= f.text_field :email %>
+	</div>
 	
-	<% end%>
 	<!-- SET SUBMIT -->
 	</section>
 	<section class="round">
