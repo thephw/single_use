@@ -4,9 +4,11 @@ function SelectAnswer(questionID)
 	//Disable radio buttons
 	var inputElements = document.getElementsByTagName("input")
 	var input
+
+	//window.open(questionID)
 	for(var i = 0; i < inputElements.length; i++) {
 		input = inputElements[i] 
-		if(input.id == questionID) {
+		if(input.id.match('.*' + questionID + '.*')) {
 			input.disabled = true;
 		}
 	}
@@ -42,30 +44,13 @@ function SelectAnswer(questionID)
 		<section class="round">
 		<span class="prompt"><%= q.prompt %></span>
 
-		<% @user.answers = {} if(@user.answers.nil? || @user.answers.empty?) %>		
 		<span class="options">
 			<% if q.options.nil? == false && q.options.empty? == false%>
 				<br />
-				<% q.options.split(' | ').each_with_index do |a, a_index| %>
-					<% id = "user_answers_q#{q_index}"%>
-					<%= debug id if Rails.env.development? %>
-					<% name = "user[answers][q#{q_index}]"%>
-					<% type = "radio" %>
-					<% value = "#{a_index}" %>
-					<% checked = "false" %>
-					<% checked = "checked='checked'" if @user.answers["q#{q_index}"] == a_index.to_s %>
-				<input id='<%= id %>' name='<%= name %>' type='<%= type %>' value='<%= value %>' onclick ="javascript:SelectAnswer('<%= id %>')" href="javascript:;" <%= checked %>/>  
-					<%= a %>
+				<% q.options.split(' | ').each_with_index do |a,i| %>
+					<%= f.radio_button "q#{q.id}", i, :onclick => "javascript:SelectAnswer('q#{q.id}')" %> <%= a%>
 					<br />
 				<% end %>
-			<% else %>
-				<%= debug id if Rails.env.development? %>
-				<% id = "user_answers_q#{q_index}"%>
-				<% name = "user[answers][q#{q_index}]"%>
-				<% type = "text" %>
-				<% value = @user.answers["q#{q_index}"] %>
-				<input id='<%= id %>' name='<%= name %>' size="30" type='<%= type %>' value ='<%= value %>'/>
-				<br />
 			<% end %>
 		</span>
 
