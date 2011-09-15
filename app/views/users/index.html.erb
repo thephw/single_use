@@ -1,18 +1,22 @@
 <h1>Listing users</h1>
 
 <table>
-  <tr>
-    <th>Email</th>
-    <th>Answers</th>
+	<!-- SETUP THE HEADER ROW -->
+	<tr>
+	<% User.new.attributes.sort.each do |key, value|%>
+    <th><%= key %></th>
+	<% end %>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
-<% @users.each do |user| %>
+	<!-- FILL IN THE DATA  -->
+	<% @users.each do |user| %>
   <tr>
-    <td><%= user.email %></td>
-    <td><%= user.answers %></td>
+	<% user.attributes.sort.each do |key, value| %>
+    <td><%= value %></td>
+	<% end %>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= button_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
