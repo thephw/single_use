@@ -7,7 +7,7 @@ function SelectAnswer(questionID) {
 	//Check against regext and disable if it matches given ID
 	for(var i = 0; i < inputElements.length; i++) {
 		input = inputElements[i] 
-		if(input.id.match('.*' + questionID + '.*')) {
+		if(input.id.match('.*_' + questionID + '_.*')) {
 			input.disabled = true;
 		}
 	}
@@ -56,7 +56,7 @@ function EnableButtons() {
 	<% Question.all.each_with_index do |q,i| %>
 		</section>
 		<section class="round">
-		<span class="prompt"><%= q.prompt %></span>	<br />
+		<span class="prompt"><%= q.id %>) <%= q.prompt %></span>	<br />
 
 		<span class="options">
 			<% if q.options.nil? == false && q.options.empty? == false%>

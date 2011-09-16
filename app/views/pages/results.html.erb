@@ -13,14 +13,35 @@
 	<% next if q.options.nil?  || q.options.empty? %>
 	<!-- COLLECT THE DATA -->
 	<% title = "Question #{q.id}" %>
-	<% legend = q.options %>
+	<% labels = q.options %>
 	<% data = [] %>
 	<% q.options.split(' | ').each do |option| %>
 		<% data << User.where("q#{q.id}" => option).count %>
 	<% end %>
-
 	<!-- Make the display -->
 	<p><b><%= title %></b> - <%= q.prompt %></p>	
-	<%= image_tag Gchart.pie_3d(:title => title, :size => '500x200', :data => data, :labels => legend  )%>
+	<%= image_tag Gchart.pie_3d(:title => title, :size => '500x200', :data => data, :labels => labels  )%>
 	<br /><br /><br />
 <% end %>
+
+<a name="setting"></a>
+<h2>Results by Practice Setting</h2>
+<!-- Full color "FF0000|00FF00|0000FF|00FFFF|FF00FF|FFFF00" -->
+<% data = [[ 1,2,3,4,5,6 ], [ 1,2,3,4,5,6 ]] %>
+<% labels = ["Option 1", "Option 2", "Option 3"] %>
+<% title = "Chart title" %>
+<% bar_colors = "FF0000|00FF00" %>
+<% legend = ["Men","Women"]%>
+<%= image_tag Gchart.bar(:title => title, :size => '500x200', :data => data, :labels => labels, :legend => legend, :stacked => false, :bar_colors => bar_colors ) %>
+
+<a name="age"></a>
+<h2>Results by Age</h2>
+
+<a name="gender"></a>
+<h2>Results by Gender</h2>
+
+<a name="experience"></a>
+<h2>Results by Experience</h2>
+
+<a name="region"></a>
+<h2>Results by Region</h2>
