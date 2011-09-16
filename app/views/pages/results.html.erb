@@ -7,9 +7,6 @@
 <a href="#experience">Results by Experience</a><br />
 <a href="#region">Results by Region</a><br />
 
-<!-- Constants -->
-<% color_options = ["000000","FF0000","00FF00","0000FF","00FFFF","FF00FF","FFFF00"]%>
-
 <a name="overall"></a>
 <h2>Overall Results</h2>
 <% Question.all.each do |q| %>
@@ -32,204 +29,20 @@
 
 <a name="gender"></a>
 <h2>Results by Gender</h2>
-<!-- Demographic Specific Fixed Data -->
-<% filter_question = Question.find(3) %>
-<% filter_field = "q#{filter_question.id}" %>
-<% legend = filter_question.options_array %>
-<% bar_colors = color_options[0..legend.count].join(",") %>
-
-<!-- Process each Question -->
-<% Question.all.each do |q| %>
-	<!-- Param initialization -->
-	<% data = [] %>
-	<% labels = [] %>
-
-	<!-- Text Display and Options Parameter Fill -->
-	<% title = "Question #{q.id}" %>
-	<p><b><%= title %></b> - <%= q.prompt %></p>
-	<% q.options_array.each_with_index do |opt, i| %>
-		<dd <%="style='font-weight: bold'" if q.answer == i+1 %>><%= i+1 %>) <%= opt %></dd>
-		<% labels << "#{i+1}" %>
-	<% end %>
-
-	<!-- Setup Graph Data -->
-	<% legend.each do |filter_value| %>	
-		<% entry = [] %>
-		<% q.options.split(' | ').each do |option| %>
-			<% if filter_value == "All" %>
-				<% entry << User.where("q#{q.id} = ?", option).count %>
-				<% User.where("q#{q.id} = ?", option).count %>
-			<% else %>
-				<% entry << User.where("#{filter_field} = ? AND q#{q.id} = ?", filter_value, option).count %>
-				<% User.where("#{filter_field} = ? AND q#{q.id} = ?", filter_value, option).count %>
-			<% end %>
-		<% end %>
-		<% data << entry %>
-	<% end %>
-	<!-- Make Graph -->
-	<%= image_tag Gchart.bar(:title => title, :bar_width_and_spacing => '13,4', :size => '640x300', :data => data, :labels => labels, :legend => legend, :stacked => false, :bar_colors => bar_colors, :vAxis => true) %>
-	<br /><br /><br />
-<% end %>
+<%= render :partial => "demograph", :object => 3 %>
 
 <a name="setting"></a>
-<!-- Demographic Specific Fixed Data -->
-<% filter_question = Question.find(1) %>
-<% filter_field = "q#{filter_question.id}" %>
-<% legend = filter_question.options_array %>
-<% bar_colors = color_options[0..legend.count].join(",") %>
-
-<!-- Process each Question -->
-<% Question.all.each do |q| %>
-	<!-- Param initialization -->
-	<% data = [] %>
-	<% labels = [] %>
-
-	<!-- Text Display and Options Parameter Fill -->
-	<% title = "Question #{q.id}" %>
-	<p><b><%= title %></b> - <%= q.prompt %></p>
-	<% q.options_array.each_with_index do |opt, i| %>
-		<dd <%="style='font-weight: bold'" if q.answer == i+1 %>><%= i+1 %>) <%= opt %></dd>
-		<% labels << "#{i+1}" %>
-	<% end %>
-
-	<!-- Setup Graph Data -->
-	<% legend.each do |filter_value| %>	
-		<% entry = [] %>
-		<% q.options.split(' | ').each do |option| %>
-			<% if filter_value == "All" %>
-				<% entry << User.where("q#{q.id} = ?", option).count %>
-				<% User.where("q#{q.id} = ?", option).count %>
-			<% else %>
-				<% entry << User.where("#{filter_field} = ? AND q#{q.id} = ?", filter_value, option).count %>
-				<% User.where("#{filter_field} = ? AND q#{q.id} = ?", filter_value, option).count %>
-			<% end %>
-		<% end %>
-		<% data << entry %>
-	<% end %>
-	<!-- Make Graph -->
-	<%= image_tag Gchart.bar(:title => title, :bar_width_and_spacing => '13,4', :size => '640x300', :data => data, :labels => labels, :legend => legend, :stacked => false, :bar_colors => bar_colors, :vAxis => true) %>
-	<br /><br /><br />
-<% end %>
+<h2>Results by Practice Setting</h2>
+<%= render :partial => "demograph", :object => 1 %>
 
 <a name="age"></a>
 <h2>Results by Age</h2>
-<!-- Demographic Specific Fixed Data -->
-<% filter_question = Question.find(2) %>
-<% filter_field = "q#{filter_question.id}" %>
-<% legend = filter_question.options_array %>
-<% bar_colors = color_options[0..legend.count].join(",") %>
-
-<!-- Process each Question -->
-<% Question.all.each do |q| %>
-	<!-- Param initialization -->
-	<% data = [] %>
-	<% labels = [] %>
-
-	<!-- Text Display and Options Parameter Fill -->
-	<% title = "Question #{q.id}" %>
-	<p><b><%= title %></b> - <%= q.prompt %></p>
-	<% q.options_array.each_with_index do |opt, i| %>
-		<dd <%="style='font-weight: bold'" if q.answer == i+1 %>><%= i+1 %>) <%= opt %></dd>
-		<% labels << "#{i+1}" %>
-	<% end %>
-
-	<!-- Setup Graph Data -->
-	<% legend.each do |filter_value| %>	
-		<% entry = [] %>
-		<% q.options.split(' | ').each do |option| %>
-			<% if filter_value == "All" %>
-				<% entry << User.where("q#{q.id} = ?", option).count %>
-				<% User.where("q#{q.id} = ?", option).count %>
-			<% else %>
-				<% entry << User.where("#{filter_field} = ? AND q#{q.id} = ?", filter_value, option).count %>
-				<% User.where("#{filter_field} = ? AND q#{q.id} = ?", filter_value, option).count %>
-			<% end %>
-		<% end %>
-		<% data << entry %>
-	<% end %>
-	<!-- Make Graph -->
-	<%= image_tag Gchart.bar(:title => title, :bar_width_and_spacing => '13,4', :size => '640x300', :data => data, :labels => labels, :legend => legend, :stacked => false, :bar_colors => bar_colors, :vAxis => true) %>
-	<br /><br /><br />
-<% end %>
+<%= render :partial => "demograph", :object => 2 %>
 
 <a name="experience"></a>
 <h2>Results by Experience</h2>
-<!-- Demographic Specific Fixed Data -->
-<% filter_question = Question.find(4) %>
-<% filter_field = "q#{filter_question.id}" %>
-<% legend = filter_question.options_array %>
-<% bar_colors = color_options[0..legend.count].join(",") %>
-
-<!-- Process each Question -->
-<% Question.all.each do |q| %>
-	<!-- Param initialization -->
-	<% data = [] %>
-	<% labels = [] %>
-
-	<!-- Text Display and Options Parameter Fill -->
-	<% title = "Question #{q.id}" %>
-	<p><b><%= title %></b> - <%= q.prompt %></p>
-	<% q.options_array.each_with_index do |opt, i| %>
-		<dd <%="style='font-weight: bold'" if q.answer == i+1 %>><%= i+1 %>) <%= opt %></dd>
-		<% labels << "#{i+1}" %>
-	<% end %>
-
-	<!-- Setup Graph Data -->
-	<% legend.each do |filter_value| %>	
-		<% entry = [] %>
-		<% q.options.split(' | ').each do |option| %>
-			<% if filter_value == "All" %>
-				<% entry << User.where("q#{q.id} = ?", option).count %>
-				<% User.where("q#{q.id} = ?", option).count %>
-			<% else %>
-				<% entry << User.where("#{filter_field} = ? AND q#{q.id} = ?", filter_value, option).count %>
-				<% User.where("#{filter_field} = ? AND q#{q.id} = ?", filter_value, option).count %>
-			<% end %>
-		<% end %>
-		<% data << entry %>
-	<% end %>
-	<!-- Make Graph -->
-	<%= image_tag Gchart.bar(:title => title, :bar_width_and_spacing => '13,4', :size => '640x300', :data => data, :labels => labels, :legend => legend, :stacked => false, :bar_colors => bar_colors, :vAxis => true) %>
-	<br /><br /><br />
-<% end %>
+<%= render :partial => "demograph", :object => 4 %>
 
 <a name="region"></a>
 <h2>Results by Region</h2>
-<!-- Demographic Specific Fixed Data -->
-<% filter_question = Question.find(5) %>
-<% filter_field = "q#{filter_question.id}" %>
-<% legend = filter_question.options_array %>
-<% bar_colors = color_options[0..legend.count].join(",") %>
-
-<!-- Process each Question -->
-<% Question.all.each do |q| %>
-	<!-- Param initialization -->
-	<% data = [] %>
-	<% labels = [] %>
-
-	<!-- Text Display and Options Parameter Fill -->
-	<% title = "Question #{q.id}" %>
-	<p><b><%= title %></b> - <%= q.prompt %></p>
-	<% q.options_array.each_with_index do |opt, i| %>
-		<dd <%="style='font-weight: bold'" if q.answer == i+1 %>><%= i+1 %>) <%= opt %></dd>
-		<% labels << "#{i+1}" %>
-	<% end %>
-
-	<!-- Setup Graph Data -->
-	<% legend.each do |filter_value| %>	
-		<% entry = [] %>
-		<% q.options.split(' | ').each do |option| %>
-			<% if filter_value == "All" %>
-				<% entry << User.where("q#{q.id} = ?", option).count %>
-				<% User.where("q#{q.id} = ?", option).count %>
-			<% else %>
-				<% entry << User.where("#{filter_field} = ? AND q#{q.id} = ?", filter_value, option).count %>
-				<% User.where("#{filter_field} = ? AND q#{q.id} = ?", filter_value, option).count %>
-			<% end %>
-		<% end %>
-		<% data << entry %>
-	<% end %>
-	<!-- Make Graph -->
-	<%= image_tag Gchart.bar(:title => title, :bar_width_and_spacing => '13,4', :size => '640x300', :data => data, :labels => labels, :legend => legend, :stacked => false, :bar_colors => bar_colors, :vAxis => true) %>
-	<br /><br /><br />
-<% end %>
+<%= render :partial => "demograph", :object => 5 %>
