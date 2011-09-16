@@ -1,15 +1,8 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-
-<p>
-  <b>Answers:</b>
-  <%= @user.answers %>
-</p>
-
+<h3>User <%= @user.id %></h3>
+<% @user.attributes.sort.each do |key, value|%>
+	 <div><dd><b><%= "#{key}" %></b><%= " = #{value}" %></dd></div>
+<% end %>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

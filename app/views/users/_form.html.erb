@@ -1,11 +1,10 @@
 <script language="JavaScript">
-function SelectAnswer(questionID)
-{	
-	//Disable radio buttons
+function SelectAnswer(questionID) {	
+	//Get elements
 	var inputElements = document.getElementsByTagName("input")
 	var input
 
-	//window.open(questionID)
+	//Check against regext and disable if it matches given ID
 	for(var i = 0; i < inputElements.length; i++) {
 		input = inputElements[i] 
 		if(input.id.match('.*' + questionID + '.*')) {
@@ -21,12 +20,27 @@ function SelectAnswer(questionID)
 	responseElement.style.display='block';	
 }
 </script>
+<script language ="JavaScript">
+function EnableButtons() {
+	//Get elements
+	var inputElements = document.getElementsByTagName("input")
+	var input
+	
+	//Re-enabled the buttons so they work for submitting data
+	for(var i = 0; i < inputElements.length; i++) {
+		input = inputElements[i] 
+		if(input.disabled == true) {
+			input.disabled = false;
+		}
+	}	
+}
+</script>
 
 <%= form_for(@user) do |f| %>
-	
+	<p>Do not select an answer until you are sure, answers will lock.  </p>
+	</section>
 	<!-- GET ERROR DISPLAY -->
 	<% if @user.errors.any? %>
-	</section>
 	<section class="round">
 		<div id="error_explanation" class="error">
 		<h3><%= pluralize(@user.errors.count, "error") %> prohibited the results from being saved:</h3>
@@ -39,35 +53,33 @@ function SelectAnswer(questionID)
 	<% end %>
 	
 	<!-- GET QUESTIONS DISPLAY -->
-	<% Question.all.each_with_index do |q, q_index| %>
+	<% Question.all.each_with_index do |q,i| %>
 		</section>
 		<section class="round">
-		<span class="prompt"><%= q.prompt %></span>
+		<span class="prompt"><%= q.prompt %></span>	<br />
 
 		<span class="options">
 			<% if q.options.nil? == false && q.options.empty? == false%>
-				<br />
-				<% q.options.split(' | ').each_with_index do |a,i| %>
-					<%= f.radio_button "q#{q.id}", i, :onclick => "javascript:SelectAnswer('q#{q.id}')" %> <%= a%>
-					<br />
+				<% q.options.split(' | ').each do |a| %>
+					 <%= f.radio_button "q#{q.id}", a, :onclick => "SelectAnswer('q#{q.id}')" %> <%= a %><br />
 				<% end %>
 			<% end %>
 		</span>
 
 		<% if q.response.nil? == false && q.response.empty? == false %>
 			<br />
-			<div class="notice" id="user_answers_q<%=q_index%>_response" style="DISPLAY: none">
+			<div class="notice" id="q<%=q.id%>_response" style="DISPLAY: none">
 				<%= q.response %>
 			</div>
 		<% end %>	
-    <% end%>
+	<% end%>
 
 	<!-- GET EMAIL -->
 	</section>
 	<section class="round">
 	<div class="field">
 		<h3>Optional</h3>
-		<p>If you would like to receive access to the survey results you may enter your email here.  All contact information will be saved separate from survey results. </p>
+		<p>Enter email to see results.  Your contact information will be saved separately from results. </p>
 		<%= f.label :email %>  <%= f.text_field :email %>
 	</div>
 	
@@ -75,7 +87,7 @@ function SelectAnswer(questionID)
 	</section>
 	<section class="round">
 	<div class="actions">
-    	<%= f.submit 'Submit Results', :class => "submit_button round"%>
+    	<%= f.submit 'Submit Results', :class => "submit_button round", :onclick=>"EnableButtons()" %>
   	</div>
   
 <% end %>

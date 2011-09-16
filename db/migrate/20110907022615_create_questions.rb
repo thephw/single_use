@@ -5,6 +5,7 @@ class CreateQuestions < ActiveRecord::Migration
       t.string :options
       t.integer :answer
       t.string :response
+      t.integer :priority
       t.timestamps
     end
   end

@@ -1,29 +1,16 @@
 <h1>Listing users</h1>
 
-<table>
-	<!-- SETUP THE HEADER ROW -->
-	<tr>
-	<% User.new.attributes.sort.each do |key, value|%>
-    <th><%= key %></th>
-	<% end %>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-	<!-- FILL IN THE DATA  -->
-	<% @users.each do |user| %>
-  <tr>
-	<% user.attributes.sort.each do |key, value| %>
-    <td><%= value %></td>
-	<% end %>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= button_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<% User.all.each do |user| %>
+	<h3>User <%= user.id %></h3>
+	<div><dd><b>ID:</b> <%= user.id %></dd></div>
+	<div><dd><b>Created @:</b> <%= user.created_at.to_s %></dd></div>
+	<div><dd><b>Updated @:</b> <%= user.updated_at.to_s %></dd></div>
+	<ul>
+		<li><%= link_to 'Show', user %></li>
+		<li><%= link_to 'Edit', edit_user_path(user) %> </li>
+		<li><%= button_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></li>
+	</ul>
+	<br /><br />
 <% end %>
-</table>
-
-<br />
 
 <%= link_to 'New User', new_user_path %>
