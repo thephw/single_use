@@ -14,7 +14,10 @@
 	<!-- COLLECT THE DATA -->
 	<% title = "Question #{q.id}" %>
 	<% legend = q.options %>
-	<% data = [10,20,30] %>
+	<% data = [] %>
+	<% q.options.split(' | ').each do |option| %>
+		<% data << User.where("q#{q.id}" => option).count %>
+	<% end %>
 
 	<!-- Make the display -->
 	<p><b><%= title %></b> - <%= q.prompt %></p>	
