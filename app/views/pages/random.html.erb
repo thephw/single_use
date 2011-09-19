@@ -17,5 +17,5 @@
 	<% while(Factoid.exists?(index) == false) %>
 		<% index = 1 + rand(Factoid.all.count) %>
 	<% end %>
-	<%= render :partial => '_factoid', :object => index %>
+	<%= render :partial => '_factoid', :object => Factoid.find(index) %>
 <% end %>
