@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   
-  http_basic_authenticate_with :name => "admin", :password => "singleuse", :except => :home, :except => [:home, :about, :survey]
+  http_basic_authenticate_with :name => "admin", :password => "singleuse", :except => :home, :except => [:home, :about, :survey, :random]
   
   def home
     @title = 'Home'
@@ -41,5 +41,9 @@ class PagesController < ApplicationController
   
   def results_by_region
      @title = 'Results by Region'
+  end
+  
+  def random
+  
   end
 end

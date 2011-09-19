@@ -1,0 +1,15 @@
+<!-- COLLECT THE DATA -->
+<% q = overall_result_for_q %>
+<% title = "Question #{q.id}" %>
+<% labels = [] %>
+<% data = [] %>
+
+<!-- Make the display -->
+<p><b><%= title %></b> - <%= q.prompt %></p>	
+<% q.options.split(' | ').each_with_index do |option, index| %>
+	<dd <%="style='font-weight: bold'" if q.answer == index+1 %>><%= index+1 %>) <%= option %></dd>
+	<% data << User.where("q#{q.id}" => option).count %>
+	<% labels << "#{index}" %>
+<% end %>	
+<%= image_tag Gchart.pie_3d(:title => title, :size => '640x240', :data => data, :labels => labels )%>
+<br /><br /><br />

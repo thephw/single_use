@@ -1,0 +1,21 @@
+<% content_for :head do %>
+	<!-- Refresh every 5 seconds -->
+	<meta http-equiv="refresh" content="60" /> 
+<% end %>
+
+<%= option = rand(2) %>
+<%= random_index = 1 + rand(Question.all.count) %>
+<% while(Question.exists?(random_index) == false) %>
+	<% random_index = 1 + rand(Question.all.count) %>
+<% end %>
+<% if option == 0 %>
+	<%= render :partial => 'overall_result_for_q', :object => Question.find(random_index) %>
+<% elsif option == 1 %>
+	<%= render :partial => 'random_demograph_for_q', :object => Question.find(random_index)%>
+<% elsif option == 2 %>
+	<% index = 0 %>
+	<% while(Factoid.exists?(index) == false) %>
+		<% index = 1 + rand(Factoid.all.count) %>
+	<% end %>
+	<%= render :partial => '_factoid', :object => index %>
+<% end %>
