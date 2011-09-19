@@ -1,48 +1,8 @@
 <h1>Survey Results</h1>
-<p>Overall results are broken down overall as well as by demographic information.  Answers in bold mark best practice where appropriate.  </p>
-<a href="#overall">Overall Results</a><br />
-<a href="#gender">Results by Gender</a><br />
-<a href="#setting">Results by Practice Setting</a><br />
-<a href="#age">Results by Age</a><br />
-<a href="#experience">Results by Experience</a><br />
-<a href="#region">Results by Region</a><br />
-
-<a name="overall"></a>
-<h2>Overall Results</h2>
-<% Question.all.each do |q| %>
-	<% next if q.options.nil?  || q.options.empty? %>
-	<!-- COLLECT THE DATA -->
-	<% title = "Question #{q.id}" %>
-	<% labels = [] %>
-	<% data = [] %>
-
-	<!-- Make the display -->
-	<p><b><%= title %></b> - <%= q.prompt %></p>	
-	<% q.options.split(' | ').each_with_index do |option, index| %>
-		<dd><%= "*" if q.answer == index+1 %><%= index+1 %>) <%= option %></dd>
-		<% data << User.where("q#{q.id}" => option).count %>
-		<% labels << "#{index}" %>
-	<% end %>	
-	<%= image_tag Gchart.pie_3d(:title => title, :size => '640x240', :data => data, :labels => labels )%>
-	<br /><br /><br />
-<% end %>
-
-<a name="gender"></a>
-<h2>Results by Gender</h2>
-<%= render :partial => "demograph", :object => 3 %>
-
-<a name="setting"></a>
-<h2>Results by Practice Setting</h2>
-<%= render :partial => "demograph", :object => 1 %>
-
-<a name="age"></a>
-<h2>Results by Age</h2>
-<%= render :partial => "demograph", :object => 2 %>
-
-<a name="experience"></a>
-<h2>Results by Experience</h2>
-<%= render :partial => "demograph", :object => 4 %>
-
-<a name="region"></a>
-<h2>Results by Region</h2>
-<%= render :partial => "demograph", :object => 5 %>
+<p>Overall results are provided as well as results by demographic information.  Answers in bold mark best practice where appropriate.  Results are updated semi-live, so feel free to check back.</p>
+<%= link_to "Overall Results", overall_results_path %><br />
+<%= link_to "Results by Gender", results_by_gender_path %><br />
+<%= link_to "Results by Practice Setting", results_by_setting_path %><br />
+<%= link_to "Results by Age", results_by_age_path %><br />
+<%= link_to "Results by Experience", results_by_experience_path %><br />
+<%= link_to "Results by Region", results_by_region_path %><br />
