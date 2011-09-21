@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  header: MyString
   text: MyString
   picture: MyString
+  header: MyString
 
 two:
-  header: MyString
   text: MyString
   picture: MyString
+  header: MyString

@@ -1,9 +1,9 @@
 class CreateFactoids < ActiveRecord::Migration
   def change
     create_table :factoids do |t|
-      t.string :header
       t.string :text
       t.string :picture
+      t.string :header
 
       t.timestamps
     end
