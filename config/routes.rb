@@ -1,6 +1,5 @@
 SingleUse::Application.routes.draw do
   resources :factoids
-
   resources :users
   resources :questions
   root :to => 'pages#home'
