@@ -13,5 +13,4 @@ SingleUse::Application.routes.draw do
   match 'results_by_experience', :to => 'pages#results_by_experience'
   match 'results_by_region', :to => 'pages#results_by_region'
   match 'random', :to => 'pages#random'
-  match 'thanks', :to => 'pages#thanks'
 end

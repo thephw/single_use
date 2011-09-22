@@ -1,5 +1,4 @@
 class QuestionsController < ApplicationController
-  http_basic_authenticate_with :name => "admin", :password => "Arenat4r"
   # GET /questions
   # GET /questions.xml
   def index

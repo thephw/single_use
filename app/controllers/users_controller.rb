@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  http_basic_authenticate_with :name => "admin", :password => "Arenat4r", :except => [:new, :create]
-  
   # GET /users
   # GET /users.xml
   def index
@@ -46,7 +44,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to(thanks_path, :notice => 'User was successfully created.') }
+        format.html { redirect_to(users_path, :notice => 'User was successfully created.') }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }
