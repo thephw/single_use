@@ -1,4 +1,5 @@
 class FactoidsController < ApplicationController
+  http_basic_authenticate_with :name => "admin", :password => "Arenat4r", :except => [:new, :create]
   # GET /factoids
   # GET /factoids.json
   def index

@@ -1,6 +1,10 @@
 class PagesController < ApplicationController
   
-  http_basic_authenticate_with :name => "admin", :password => "singleuse", :except => :home, :except => [:home, :about, :survey, :random]
+  http_basic_authenticate_with :name => "admin", :password => "singleuse", :except => :home, :except => [:home, :about, :survey, :random, :thanks]
+  
+  def thanks
+    @title = 'Thanks'
+  end
   
   def home
     @title = 'Home'
