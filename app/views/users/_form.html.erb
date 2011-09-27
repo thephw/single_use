@@ -17,7 +17,9 @@ function SelectAnswer(questionID) {
 	var responseElement = document.getElementById(questionID+"_response")
 	
 	//Show the prompt
-	responseElement.style.display='block';	
+	if(responseElement != null) {
+		responseElement.style.display='block';			
+	}
 }
 </script>
 <script language ="JavaScript">
@@ -27,36 +29,16 @@ function EnableButtons() {
 	var input
 	
 	//Re-enabled the buttons so they work for submitting data
-	var qlocks = ""
 	for(var i = 0; i < inputElements.length; i++) {
 		input = inputElements[i] 
 		if(input.disabled == true) {
 			input.disabled = false;
-			qlock += ('|' + input.id)
 		}
 	}	
-	
-	//Set which button to lock in case validation fails
-	var lockElement = document.getElementById('qlock')
-	lockElement.value = qlocks
-}
-</script>
-<script>
-function onLoad() {
-	//Get input elements
-	var inputElements = document.getElementsByTagName("input")
-	var input	
-	
-	//Build locked elements array from the hidden field
-	var lockedElements = document.getElementById('qlock').value.split('|')
-	
-	//Foreach locked question call select answer on that ID
-	for(var i = 0; i < lockedElements.length; i++) {
-		SelectAnswer(lockedElements[i])
-	}
 }
 </script>
 <%= form_for(@user) do |f| %>
+<%= hidden_field params, :locks %>
 	<p>Do not select an answer until you are certain of your selection as options will lock.  </p>
 	</section>
 	<!-- GET ERROR DISPLAY -->
@@ -77,11 +59,12 @@ function onLoad() {
 		</section>
 		<section class="round">
 		<span class="prompt"><%= q.id %>) <%= q.prompt %></span>	<br />
-
 		<span class="options">
 			<% if q.options.nil? == false && q.options.empty? == false %>
 				<% q.options.split(' | ').each do |a| %>
-					 <%= f.radio_button "q#{q.id}", a, onclick: "SelectAnswer('q#{q.id}')" %> <%= a %><br />
+					<% disable_value = true %>
+					<% disable_value = false if @user["q#{q.id}"].nil? || params[:action] == "edit" %>
+					 <%= f.radio_button "q#{q.id}", a, {onclick: "SelectAnswer('q#{q.id}')", disabled: disable_value } %> <%= a %><br />
 				<% end %>
 			<% end %>
 		</span>

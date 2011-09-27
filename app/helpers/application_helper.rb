@@ -9,6 +9,16 @@ module ApplicationHelper
     end
   end
   
+  def body_options
+    options = ""
+    if(@bodytag.nil? == false)
+      @bodytag.each_pair do |key,value|
+        options << "#{key}='#{value}' "
+      end
+    end
+    options
+  end
+  
   def singleuse_logo
     image_tag("singleuse_logo.jpg", :alt => "Single Use", :class => "round")
   end

@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 <h3>User <%= @user.id %></h3>
 <% @user.attributes.sort.each do |key, value|%>
+	<% if value.nil? == false %>
 	 <div><dd><b><%= "#{key}" %></b><%= " = #{value}" %></dd></div>
+	<% end %>
 <% end %>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
