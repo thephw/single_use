@@ -27,17 +27,37 @@ function EnableButtons() {
 	var input
 	
 	//Re-enabled the buttons so they work for submitting data
+	var qlocks = ""
 	for(var i = 0; i < inputElements.length; i++) {
 		input = inputElements[i] 
 		if(input.disabled == true) {
 			input.disabled = false;
+			qlock += ('|' + input.id)
 		}
 	}	
+	
+	//Set which button to lock in case validation fails
+	var lockElement = document.getElementById('qlock')
+	lockElement.value = qlocks
 }
 </script>
-
+<script>
+function onLoad() {
+	//Get input elements
+	var inputElements = document.getElementsByTagName("input")
+	var input	
+	
+	//Build locked elements array from the hidden field
+	var lockedElements = document.getElementById('qlock').value.split('|')
+	
+	//Foreach locked question call select answer on that ID
+	for(var i = 0; i < lockedElements.length; i++) {
+		SelectAnswer(lockedElements[i])
+	}
+}
+</script>
 <%= form_for(@user) do |f| %>
-	<p>Do not select an answer until you are sure, answers will lock.  </p>
+	<p>Do not select an answer until you are sure if your answer, options will lock.  </p>
 	</section>
 	<!-- GET ERROR DISPLAY -->
 	<% if @user.errors.any? %>
@@ -59,9 +79,9 @@ function EnableButtons() {
 		<span class="prompt"><%= q.id %>) <%= q.prompt %></span>	<br />
 
 		<span class="options">
-			<% if q.options.nil? == false && q.options.empty? == false%>
+			<% if q.options.nil? == false && q.options.empty? == false %>
 				<% q.options.split(' | ').each do |a| %>
-					 <%= f.radio_button "q#{q.id}", a, :onclick => "SelectAnswer('q#{q.id}')" %> <%= a %><br />
+					 <%= f.radio_button "q#{q.id}", a, onclick: "SelectAnswer('q#{q.id}')" %> <%= a %><br />
 				<% end %>
 			<% end %>
 		</span>

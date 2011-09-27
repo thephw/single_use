@@ -1,7 +1,6 @@
-SingleUse::Application.routes.draw do
-  resources :factoids
-  resources :users
+SingleUse::Application.routes.draw do  resources :users
   resources :questions
+  resources :factoids
   root :to => 'pages#home'
   match 'survey', :to => 'pages#survey'
   match 'results', :to => 'pages#results'
