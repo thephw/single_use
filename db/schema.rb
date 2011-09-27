@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,12 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110921223554) do
+ActiveRecord::Schema.define(:version => 20110927174633) do
 
   create_table "factoids", :force => true do |t|
-    t.string   "text"
     t.string   "picture"
-    t.string   "header"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -3,8 +3,8 @@
 	<meta http-equiv="refresh" content="60" /> 
 <% end %>
 
-<%= option = rand(2) %>
-<%= random_index = 1 + rand(Question.all.count) %>
+<% option = rand(3) %>
+<% random_index = 0 %>
 <% while(Question.exists?(random_index) == false) %>
 	<% random_index = 1 + rand(Question.all.count) %>
 <% end %>
@@ -17,5 +17,5 @@
 	<% while(Factoid.exists?(index) == false) %>
 		<% index = 1 + rand(Factoid.all.count) %>
 	<% end %>
-	<%= render :partial => '_factoid', :object => Factoid.find(index) %>
+	<%= image_tag Factoid.random.picture, :class => "round" %>
 <% end %>
