@@ -1,3 +1,9 @@
 <h1>Single Use Safety</h1>
+<!-- GET ERROR DISPLAY -->
+<% if flash[:notice].nil? == false %>
+	<div id="notice" class="success">
+	  <%= flash[:notice] %>
+	</div>
+<% end %>
 <p>Welcome ASA Members!  You are invited to take our survey about safe injection practices.  Survey results are collected anonymously.  Email addresses will be used to send information about survey results and best practices if you so choose.</p>
 <%= link_to "Take the survey!", survey_path, :class => "signup_button round"%>
