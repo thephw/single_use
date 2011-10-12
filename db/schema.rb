@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110927174633) do
+ActiveRecord::Schema.define(:version => 20111012191421) do
 
   create_table "factoids", :force => true do |t|
     t.string   "picture"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20110927174633) do
     t.integer  "priority"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "responsetype"
   end
 
   create_table "users", :force => true do |t|

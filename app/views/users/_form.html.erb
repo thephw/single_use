@@ -1,12 +1,13 @@
 <script language="JavaScript">
-function SelectAnswer(questionID) {	
+function SelectAnswer(questionID, selected_ans, correct_ans) {	
 	//Get elements
 	var inputElements = document.getElementsByTagName("input")
 	var input
+	var rightAnswer = false
 
 	//Check against regext and disable if it matches given ID
 	for(var i = 0; i < inputElements.length; i++) {
-		input = inputElements[i] 
+		input = inputElements[i]
 		if(input.id.match('.*_' + questionID + '_.*')) {
 			input.disabled = true;
 		}
@@ -18,6 +19,12 @@ function SelectAnswer(questionID) {
 	
 	//Show the prompt
 	if(responseElement != null) {
+		if(selected_ans == correct_ans) {
+			responseElement.className='success';			
+		}
+		else{
+			responseElement.className='error';
+		}
 		responseElement.style.display='block';			
 	}
 }
@@ -61,17 +68,17 @@ function EnableButtons() {
 		<span class="prompt"><%= q.id %>) <%= q.prompt %></span>	<br />
 		<span class="options">
 			<% if q.options.nil? == false && q.options.empty? == false %>
-				<% q.options.split(' | ').each do |a| %>
+				<% q.options.split(' | ').each_with_index do |a,i| %>
 					<% disable_value = true %>
 					<% disable_value = false if @user["q#{q.id}"].nil? || params[:action] == "edit" %>
-					 <%= f.radio_button "q#{q.id}", a, {onclick: "SelectAnswer('q#{q.id}')", disabled: disable_value } %> <%= a %><br />
+					 <%= f.radio_button "q#{q.id}", a, {onclick: "SelectAnswer('q#{q.id}','#{i}','#{q.answer}')", disabled: disable_value } %> <%= a %><br />
 				<% end %>
 			<% end %>
 		</span>
 
 		<% if q.response.nil? == false && q.response.empty? == false %>
 			<br />
-			<div class="notice" id="q<%=q.id%>_response" style="DISPLAY: none">
+			<div class="" id="q<%=q.id%>_response" style="DISPLAY: none">
 				<%= q.response %>
 			</div>
 		<% end %>	
