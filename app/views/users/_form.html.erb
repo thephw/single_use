@@ -62,10 +62,10 @@ function EnableButtons() {
 	<% end %>
 	
 	<!-- GET QUESTIONS DISPLAY -->
-	<% Question.all.each_with_index do |q,i| %>
+	<% Question.find(:all, order: :priority).each_with_index do |q,i| %>
 		</section>
 		<section class="round">
-		<span class="prompt"><%= q.id %>) <%= q.prompt %></span>	<br />
+		<span class="prompt"><%= q.priority %>) <%= q.prompt %></span>	<br />
 		<span class="options">
 			<% if q.options.nil? == false && q.options.empty? == false %>
 				<% q.options.split(' | ').each_with_index do |a,i| %>
